@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetMashup.Web.Factories;
+using DotNetMashup.Web.Repositories;
 using Microsoft.AspNet.Mvc;
 
 namespace DotNetMashup.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BlogPostFactory factory;
+        private readonly BlogPostRepository factory;
 
-        public HomeController(BlogPostFactory factory)
+        public HomeController(BlogPostRepository factory)
         {
             this.factory = factory;
         }

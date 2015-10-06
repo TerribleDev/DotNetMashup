@@ -12,7 +12,9 @@ namespace DotNetMashup.Web.Extensions
         /// Truncates a string containing HTML to a number of text characters, keeping whole words.
         /// The result contains HTML and any tags left open are closed.
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="html">todo: describe html parameter on TruncateHtml</param>
+        /// <param name="maxCharacters">todo: describe maxCharacters parameter on TruncateHtml</param>
+        /// <param name="trailingText">todo: describe trailingText parameter on TruncateHtml</param>
         /// <returns></returns>
         public static string TruncateHtml(this string html, int maxCharacters, string trailingText)
         {
@@ -90,7 +92,8 @@ namespace DotNetMashup.Web.Extensions
         /// Truncates a string containing HTML to a number of text characters, keeping whole words.
         /// The result contains HTML and any tags left open are closed.
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="html">todo: describe html parameter on TruncateHtml</param>
+        /// <param name="maxCharacters">todo: describe maxCharacters parameter on TruncateHtml</param>
         /// <returns></returns>
         public static string TruncateHtml(this string html, int maxCharacters)
         {
@@ -100,7 +103,7 @@ namespace DotNetMashup.Web.Extensions
         /// <summary>
         /// Strips all HTML tags from a string
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="html">todo: describe html parameter on StripHtml</param>
         /// <returns></returns>
         public static string StripHtml(this string html)
         {
@@ -115,7 +118,6 @@ namespace DotNetMashup.Web.Extensions
         /// </summary>
         /// <param name="text"></param>
         /// <param name="maxCharacters"></param>
-        /// <param name="trailingText"></param>
         /// <returns></returns>
         public static string Truncate(this string text, int maxCharacters)
         {
@@ -142,7 +144,6 @@ namespace DotNetMashup.Web.Extensions
         /// </summary>
         /// <param name="text"></param>
         /// <param name="maxCharacters"></param>
-        /// <param name="trailingText"></param>
         /// <returns></returns>
         public static string TruncateWords(this string text, int maxCharacters)
         {

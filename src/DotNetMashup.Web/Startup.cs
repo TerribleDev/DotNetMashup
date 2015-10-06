@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using DotNetMashup.Web.Factories;
+using DotNetMashup.Web.Repositories;
 using DotNetMashup.Web.Global;
 using DotNetMashup.Web.Model;
 using Microsoft.AspNet.Builder;
@@ -42,7 +42,7 @@ namespace DotNetMashup.Web
                 return new MemoryCache(new MemoryCacheOptions());
             });
             services.AddInstance(_feedData);
-            services.AddSingleton<BlogPostFactory>();
+            services.AddSingleton<BlogPostRepository>();
             // Add MVC services to the services container.
             services.AddMvc();
 

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetMashup.Web.Model;
 
-namespace DotNetMashup.Web.Factories
+namespace DotNetMashup.Web.Repositories
 {
-    public interface IFactory
+    public interface IRepository
     {
         string FactoryName { get; }
 
-        IEnumerable<IExternalData> GetData();
+        Task<IEnumerable<IExternalData>> GetData();
     }
 }

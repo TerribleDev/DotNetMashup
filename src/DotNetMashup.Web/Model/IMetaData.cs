@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DotNetMashup.Web.Model
 {
-    public interface IFeedData
+    public interface IMetaData
     {
         string FeedUrl { get; set; }
         string Author { get; set; }

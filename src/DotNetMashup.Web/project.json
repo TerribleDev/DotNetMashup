@@ -15,7 +15,8 @@
     "Microsoft.Framework.Logging.Console": "1.0.0-beta7",
     "Microsoft.Framework.Logging.Debug": "1.0.0-beta7",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta7",
-    "Newtonsoft.Json": "7.0.1"
+    "Newtonsoft.Json": "7.0.1",
+    "TweetinviAPI": "0.9.9.7"
   },
 
   "commands": {
@@ -23,7 +24,7 @@
   },
 
   "frameworks": {
-    "dnx451": {
+    "dnx46": {
       "frameworkAssemblies": {
         "System.ServiceModel": "4.0.0.0"
       }

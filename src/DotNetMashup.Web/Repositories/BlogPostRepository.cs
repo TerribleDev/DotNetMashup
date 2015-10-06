@@ -10,9 +10,9 @@ using DotNetMashup.Web.Global;
 using DotNetMashup.Web.Model;
 using Microsoft.Framework.Caching.Memory;
 
-namespace DotNetMashup.Web.Factories
+namespace DotNetMashup.Web.Repositories
 {
-    public class BlogPostFactory : IFactory
+    public class BlogPostRepository : IRepository
     {
         private readonly ISiteSetting setting;
 
@@ -20,7 +20,7 @@ namespace DotNetMashup.Web.Factories
         private readonly IEnumerable<MetaData> _data;
         private const string cacheKey = "blogposts";
 
-        public BlogPostFactory(IEnumerable<MetaData> data, IMemoryCache cache, ISiteSetting setting)
+        public BlogPostRepository(IEnumerable<MetaData> data, IMemoryCache cache, ISiteSetting setting)
         {
             this._data = data;
             this.cache = cache;
@@ -35,11 +35,11 @@ namespace DotNetMashup.Web.Factories
             }
         }
 
-        public IEnumerable<IExternalData> GetData()
+        public async Task<IEnumerable<IExternalData>> GetData()
         {
             var cachedata = cache.Get<IEnumerable<IExternalData>>(cacheKey);
             if(cachedata != null) return cachedata;
-            var syndicationFeeds = GetSyndicationFeeds(_data);
+            var syndicationFeeds = await GetSyndicationFeeds(_data);
 
             var data = syndicationFeeds
                .SelectMany(pair => pair.Value.Items, (pair, item) => new { Id = pair.Key, Item = item })
@@ -105,35 +105,40 @@ namespace DotNetMashup.Web.Factories
             return data;
         }
 
-        private static IEnumerable<KeyValuePair<string, SyndicationFeed>> GetSyndicationFeeds(IEnumerable<MetaData> metadataEntries)
+        private async static  Task<IEnumerable<KeyValuePair<string, SyndicationFeed>>> GetSyndicationFeeds(IEnumerable<IMetaData> metadataEntries)
         {
             var syndicationFeeds = new List<KeyValuePair<string, SyndicationFeed>>();
             foreach(var metadata in metadataEntries)
             {
-                GetFeed(metadata.FeedUrl, metadata.Id, syndicationFeeds);
+                syndicationFeeds.AddRange(await GetFeed(metadata.FeedUrl, metadata.Id, syndicationFeeds));
             }
 
             return syndicationFeeds;
         }
 
-        private static void GetFeed(string url, string id, List<KeyValuePair<string, SyndicationFeed>> syndicationFeeds)
+        private async static Task<List<KeyValuePair<string, SyndicationFeed>>> GetFeed(string url, string id, List<KeyValuePair<string, SyndicationFeed>> syndicationFeeds)
         {
+            var feeds = new List<KeyValuePair<string, SyndicationFeed>>();
             try
             {
                 SyndicationFeed feed = null;
-                using(var reader = XmlReader.Create(url))
-                {
-                    feed = SyndicationFeed.Load(reader);
-                }
+                await Task.Run(() => {
+                    using(var reader = XmlReader.Create(url))
+                    {
+                        feed = SyndicationFeed.Load(reader);
+                    }
 
+                });
+               
+                
                 if(feed != null)
                 {
-                    syndicationFeeds.Add(new KeyValuePair<string, SyndicationFeed>(id, feed));
+                    feeds.Add(new KeyValuePair<string, SyndicationFeed>(id, feed));
                     if(feed.Links.Any(x => x.RelationshipType == "next"))
                     {
                         foreach(var pagingLink in feed.Links.Where(x => x.RelationshipType == "next"))
                         {
-                            GetFeed(pagingLink.Uri.AbsoluteUri, id, syndicationFeeds);
+                            feeds.AddRange(await GetFeed(pagingLink.Uri.AbsoluteUri, id, syndicationFeeds));
                         }
                     }
                 }
@@ -146,6 +151,8 @@ namespace DotNetMashup.Web.Factories
             {
                 //Unable to load RSS feed
             }
+            return feeds;
+            
         }
     }
 }
