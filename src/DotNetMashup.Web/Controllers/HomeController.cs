@@ -9,16 +9,16 @@ namespace DotNetMashup.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BlogPostRepository factory;
+        private readonly Factory.RepositoryFactory factory;
 
-        public HomeController(BlogPostRepository factory)
+        public HomeController(Factory.RepositoryFactory factory)
         {
             this.factory = factory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = factory.GetData();
+            var data = await factory.GetData();
             return View();
         }
 

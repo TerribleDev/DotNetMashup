@@ -10,6 +10,7 @@ namespace DotNetMashup.Web.Model
         string Title { get; set; }
         string Content { get; set; }
         string OriginalLink { get; set; }
-        string Author { get; set; }
+        Author Author { get; set; }
+        DateTime PublishedDate { get; set; }
     }
 }

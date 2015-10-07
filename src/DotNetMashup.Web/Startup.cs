@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using DotNetMashup.Web.Repositories;
+using DotNetMashup.Web.Factory;
 using DotNetMashup.Web.Global;
 using DotNetMashup.Web.Model;
+using DotNetMashup.Web.Repositories;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Dnx.Runtime;
@@ -16,7 +17,7 @@ namespace DotNetMashup.Web
 {
     public class Startup
     {
-        private IEnumerable<MetaData> _feedData = null;
+        private IEnumerable<BlogMetaData> _feedData = null;
 
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
@@ -25,7 +26,7 @@ namespace DotNetMashup.Web
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            _feedData = JsonConvert.DeserializeObject<IEnumerable<MetaData>>(File.ReadAllText(Path.Combine(appEnv.ApplicationBasePath, "blogfeed.json")));
+            _feedData = JsonConvert.DeserializeObject<IEnumerable<BlogMetaData>>(File.ReadAllText(Path.Combine(appEnv.ApplicationBasePath, "blogfeed.json")));
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -42,7 +43,7 @@ namespace DotNetMashup.Web
                 return new MemoryCache(new MemoryCacheOptions());
             });
             services.AddInstance(_feedData);
-            services.AddSingleton<BlogPostRepository>();
+            services.AddSingleton<RepositoryFactory>();
             // Add MVC services to the services container.
             services.AddMvc();
 

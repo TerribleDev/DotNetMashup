@@ -17,10 +17,10 @@ namespace DotNetMashup.Web.Repositories
         private readonly ISiteSetting setting;
 
         private readonly IMemoryCache cache;
-        private readonly IEnumerable<MetaData> _data;
+        private readonly IEnumerable<IBlogMetaData> _data;
         private const string cacheKey = "blogposts";
 
-        public BlogPostRepository(IEnumerable<MetaData> data, IMemoryCache cache, ISiteSetting setting)
+        public BlogPostRepository(IEnumerable<IBlogMetaData> data, ISiteSetting setting)
         {
             this._data = data;
             this.cache = cache;
@@ -37,8 +37,6 @@ namespace DotNetMashup.Web.Repositories
 
         public async Task<IEnumerable<IExternalData>> GetData()
         {
-            var cachedata = cache.Get<IEnumerable<IExternalData>>(cacheKey);
-            if(cachedata != null) return cachedata;
             var syndicationFeeds = await GetSyndicationFeeds(_data);
 
             var data = syndicationFeeds
@@ -91,21 +89,18 @@ namespace DotNetMashup.Web.Repositories
                    {
                        Title = x.Item.Title.Text,
                        Summary = truncatedSummary,
-                       Author = authorname,
-                       AuthorEmail = authoremail,
+                       Author = new Author { Email = authoremail, Name = authorname },
                        Localink = locallink,
                        OriginalLink = originallink,
                        PublishedDate = x.Item.PublishDate.DateTime,
                        Content = content
                    };
                })
-               .OrderByDescending(x => x.PublishedDate)
                .ToList();
-            cache.Set(cacheKey, data.Cast<IExternalData>());
             return data;
         }
 
-        private async static  Task<IEnumerable<KeyValuePair<string, SyndicationFeed>>> GetSyndicationFeeds(IEnumerable<IMetaData> metadataEntries)
+        private async static Task<IEnumerable<KeyValuePair<string, SyndicationFeed>>> GetSyndicationFeeds(IEnumerable<IBlogMetaData> metadataEntries)
         {
             var syndicationFeeds = new List<KeyValuePair<string, SyndicationFeed>>();
             foreach(var metadata in metadataEntries)
@@ -122,15 +117,14 @@ namespace DotNetMashup.Web.Repositories
             try
             {
                 SyndicationFeed feed = null;
-                await Task.Run(() => {
+                await Task.Run(() =>
+                {
                     using(var reader = XmlReader.Create(url))
                     {
                         feed = SyndicationFeed.Load(reader);
                     }
-
                 });
-               
-                
+
                 if(feed != null)
                 {
                     feeds.Add(new KeyValuePair<string, SyndicationFeed>(id, feed));
@@ -152,7 +146,6 @@ namespace DotNetMashup.Web.Repositories
                 //Unable to load RSS feed
             }
             return feeds;
-            
         }
     }
 }

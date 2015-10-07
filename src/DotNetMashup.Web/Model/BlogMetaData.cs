@@ -1,7 +1,7 @@
 ﻿namespace DotNetMashup.Web.Model
 {
     //stolen idea from: https://github.com/NancyFx/Nancy.Blog/blob/master/src/Nancy.Blog/Model/MetaData.cs
-    public class MetaData : IMetaData
+    public class BlogMetaData : IBlogMetaData
     {
         public string FeedUrl { get; set; }
         public string Author { get; set; }
