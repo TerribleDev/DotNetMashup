@@ -7,7 +7,7 @@
             <div class="col-md-8"><h2><i class="fa fa-book" style="font-size:32px"></i> @Model.Author.Name </h2></div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 breakword">
                 <h2><a href="@Model.OriginalLink">@Model.Title</a></h2>
                 @Html.Raw(Model.Content)<span>
                     <a href="@Model.OriginalLink">Read Further</a>

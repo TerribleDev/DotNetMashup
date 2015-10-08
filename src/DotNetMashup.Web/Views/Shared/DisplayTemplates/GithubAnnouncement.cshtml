@@ -7,7 +7,7 @@
             <div class="col-md-6"><h2><i class="fa fa-github" style="font-size:32px"></i> @Model.Author.Name <a href="@Model.OriginalLink">#@Model.IssueNumber</a> </h2></div>
         </div>
         <div class="row">
-            <div class="col-md-12">@Html.Raw(@Model.Content)</div>
+            <div class="col-md-12 breakword">@Html.Raw(Model.Content)</div>
         </div>
     </div>
 </div>
