@@ -23,6 +23,8 @@ namespace DotNetMashup.Web.Repositories
         {
             this._data = data;
             this.setting = setting;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
         }
 
         public string FactoryName
