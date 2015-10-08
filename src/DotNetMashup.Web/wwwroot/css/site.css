@@ -57,3 +57,9 @@ footer {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }
+
+code, pre {
+    white-space: pre-wrap; /* css-3 */
+    -ms-word-wrap: break-word;
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
