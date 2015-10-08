@@ -23,8 +23,6 @@ namespace DotNetMashup.Web.Repositories
         {
             this._data = data;
             this.setting = setting;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-            ServicePointManager.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback((s, ce, ch, ssl) => true);
         }
 
         public string FactoryName
@@ -112,6 +110,7 @@ namespace DotNetMashup.Web.Repositories
 
         private async static Task<List<KeyValuePair<string, SyndicationFeed>>> GetFeed(string url, string id, List<KeyValuePair<string, SyndicationFeed>> syndicationFeeds)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var feeds = new List<KeyValuePair<string, SyndicationFeed>>();
             try
             {
