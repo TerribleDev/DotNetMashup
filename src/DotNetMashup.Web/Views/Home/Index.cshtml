@@ -4,18 +4,14 @@
     ViewData["Title"] = "Dot Net Mashups!";
 }
 
-
 @await Html.PartialAsync("Tiles", Model.Posts)
 
 <br />
-<br/>
+<br />
 @if(Model.NextPage.HasValue)
 {
     <div class="row" style="min-height: 100px">
         <a asp-action="Index" asp-route-page="@Model.NextPage" class="pill col-md-offset-5 ">Next Page</a>
     </div>
-       
 
-
-   
 }

@@ -1,15 +1,18 @@
 ﻿@model DotNetMashup.Web.Model.BlogPostExternalData
 
-
 <div class="tile">
-    <div class="row">
-        <div class="col-md-2"><img class="img-responsive img" src="@Model.Author.ImageUrl" /></div>
-        <div class="col-md-8"><h2><i class="fa fa-book" style="font-size:32px"></i> @Model.Author.Name </h2></div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h2><a href="@Model.OriginalLink">@Model.Title</a></h2>
-            <p>@Html.Raw(Model.Content)</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"><img class="img-responsive img" src="@Model.Author.ImageUrl" /></div>
+            <div class="col-md-8"><h2><i class="fa fa-book" style="font-size:32px"></i> @Model.Author.Name </h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2><a href="@Model.OriginalLink">@Model.Title</a></h2>
+                @Html.Raw(Model.Content)<span>
+                    <a href="@Model.OriginalLink">Read Further</a>
+                </span>
+            </div>
         </div>
     </div>
 </div>
