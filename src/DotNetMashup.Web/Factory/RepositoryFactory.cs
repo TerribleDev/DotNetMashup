@@ -37,13 +37,13 @@ namespace DotNetMashup.Web.Factory
             this.cache = cache;
         }
 
-        public async Task<List<IExternalData>> GetData()
+        public async Task<IEnumerable<IExternalData>> GetData()
         {
-            var cachedData = this.cache.Get<List<IExternalData>>(cacheKey);
-            if(cachedData != null && cachedData.Count > 0) return cachedData;
+            var cachedData = this.cache.Get<IEnumerable<IExternalData>>(cacheKey);
+            if(cachedData != null && cachedData.Any()) return cachedData;
             var tasks = Repos.Select(a => a.GetData());
             await Task.WhenAll(tasks);
-            var result = tasks.SelectMany(a => a.Result).OrderBy(a => a.PublishedDate).ToList();
+            var result = tasks.SelectMany(a => a.Result).ToList();
             cache.Set(cacheKey, result, new MemoryCacheEntryOptions { AbsoluteExpiration = DateTime.Now.AddHours(4) });
             return result;
         }

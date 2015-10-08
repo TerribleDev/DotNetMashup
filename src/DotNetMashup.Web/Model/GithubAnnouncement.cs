@@ -2,5 +2,6 @@
 {
     public class GithubAnnouncement : BaseExternalData
     {
+        public int IssueNumber { get; set; }
     }
 }

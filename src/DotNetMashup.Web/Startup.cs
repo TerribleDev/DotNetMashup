@@ -17,19 +17,14 @@ namespace DotNetMashup.Web
 {
     public class Startup
     {
-        private IEnumerable<BlogMetaData> _feedData = null;
+        private IEnumerable<IBlogMetaData> _feedData = null;
 
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            // Setup configuration sources.
-            var builder = new ConfigurationBuilder(appEnv.ApplicationBasePath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
             _feedData = JsonConvert.DeserializeObject<IEnumerable<BlogMetaData>>(File.ReadAllText(Path.Combine(appEnv.ApplicationBasePath, "blogfeed.json")));
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        //public IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime.
         public void ConfigureServices(IServiceCollection services)

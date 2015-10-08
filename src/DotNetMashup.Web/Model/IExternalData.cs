@@ -11,6 +11,6 @@ namespace DotNetMashup.Web.Model
         string Content { get; set; }
         string OriginalLink { get; set; }
         Author Author { get; set; }
-        DateTime PublishedDate { get; set; }
+        DateTimeOffset PublishedDate { get; set; }
     }
 }

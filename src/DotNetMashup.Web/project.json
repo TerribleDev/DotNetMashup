@@ -17,7 +17,8 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-beta7",
     "Newtonsoft.Json": "7.0.1",
     "TweetinviAPI": "0.9.9.7",
-    "Octokit": "0.16.0"
+    "Octokit": "0.16.0",
+    "CommonMark.NET": "0.9.1"
   },
 
   "commands": {

@@ -18,12 +18,10 @@ namespace DotNetMashup.Web.Repositories
 
         private readonly IMemoryCache cache;
         private readonly IEnumerable<IBlogMetaData> _data;
-        private const string cacheKey = "blogposts";
 
         public BlogPostRepository(IEnumerable<IBlogMetaData> data, ISiteSetting setting)
         {
             this._data = data;
-            this.cache = cache;
             this.setting = setting;
         }
 
@@ -45,7 +43,7 @@ namespace DotNetMashup.Web.Repositories
                .Select(x =>
                {
                    var metaauthor = _data.First(y => y.Id == x.Id);
-                   var authorname = metaauthor.Author;
+                   var authorname = metaauthor.AuthorName;
                    var authoremail = metaauthor.AuthorEmail;
 
                    var link = x.Item.Links.FirstOrDefault(y => y.RelationshipType == "alternate");
@@ -85,18 +83,17 @@ namespace DotNetMashup.Web.Repositories
                        content = summary;
                    }
 
-                   return new BlogPost
+                   return new BlogPostExternalData
                    {
                        Title = x.Item.Title.Text,
                        Summary = truncatedSummary,
-                       Author = new Author { Email = authoremail, Name = authorname },
+                       Author = new Author { Email = authoremail, Name = authorname, ImageUrl = metaauthor.ImageUrl, AuthorUrl = metaauthor.FeedUrl },
                        Localink = locallink,
                        OriginalLink = originallink,
                        PublishedDate = x.Item.PublishDate.DateTime,
                        Content = content
                    };
-               })
-               .ToList();
+               });
             return data;
         }
 

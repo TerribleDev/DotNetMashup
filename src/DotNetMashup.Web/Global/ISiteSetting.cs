@@ -8,5 +8,6 @@ namespace DotNetMashup.Web.Global
     public interface ISiteSetting
     {
         List<string> Categories { get; }
+        short AmountPerPage { get; }
     }
 }

@@ -17,6 +17,6 @@ namespace DotNetMashup.Web.Model
         public string OriginalLink { get; set; }
 
         public string Title { get; set; }
-        public DateTime PublishedDate { get; set; }
+        public DateTimeOffset PublishedDate { get; set; }
     }
 }

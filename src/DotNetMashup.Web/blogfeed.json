@@ -2,8 +2,9 @@
   {
     "id": "tparnell",
     "feedurl": "https://blog.tommyparnell.com/rss/",
-    "author": "Tommy Parnell",
-    "authoremail": "tparnell8@gmail.com",
-    "gravatarurl": "http://www.gravatar.com/avatar/333e3cea32cd17ff2007d131df336061.png?s=128"
+    "authorName": "Tommy Parnell",
+    "authorEmail": "tparnell8@gmail.com",
+    "imageUrl": "http://www.gravatar.com/avatar/333e3cea32cd17ff2007d131df336061.png?s=128",
+    "blogHomepage": "https://blog.tommyparnell.com"
   }
 ]

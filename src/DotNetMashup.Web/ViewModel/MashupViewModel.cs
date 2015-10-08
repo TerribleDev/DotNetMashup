@@ -9,6 +9,8 @@ namespace DotNetMashup.Web.ViewModel
     public class MashupViewModel
     {
         public string Header { get; set; }
-        public IEnumerable<IExternalData> posts { get; set; }
+        public int CurrentPage { get; set; }
+        public int? NextPage { get; set; }
+        public IEnumerable<IExternalData> Posts { get; set; }
     }
 }
