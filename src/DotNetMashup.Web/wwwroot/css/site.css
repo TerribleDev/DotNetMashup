@@ -74,6 +74,6 @@ code, pre {
     color: #FFFFFF; text-align:center;
 
 }
-a.head, a:hover, a:visited{
+a.headlink, a.headlink:hover, a.headlink:visited{
      color: #FFFFFF; text-align:center;
 }
