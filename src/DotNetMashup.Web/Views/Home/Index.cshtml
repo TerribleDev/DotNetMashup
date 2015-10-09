@@ -31,27 +31,35 @@
 
 @section scripts{
     <script type="text/javascript">
-        var page = @Model.CurrentPage;
-        $('img').addClass('img-responsive');
-        var loading = false;
-        $(window).on('scroll', function () {
-            var y_scroll_pos = window.pageYOffset +615;
-            var loadingImage = $('.loadWheel')
-            var loadingPosition = $('footer');
-            var scroll_pos_test = loadingPosition.position().top;
-            if (y_scroll_pos >= scroll_pos_test && loading === false) {
-                loading = true
-                loadingImage.show();
-                $.ajax('/Home/Tiles', {data:{page:page+1}})
-                .done(function(data){
-                    page++;
-                    loading = false;
-                    loadingImage.hide();
-                    var resd = $(data);
-                    resd.find('img').addClass('img-responsive');
-                    $('#tilesContainer').append(resd);
-                });
-            }
+        $(document).ready(function(){
+            var page = @Model.CurrentPage;
+            $('img').addClass('img-responsive');
+            $('.tile').addClass('show');
+            var loading = false;
+            $(window).on('scroll', function () {
+                var loadingImage = $('.loadWheel');
+                var tile = $('.tile').last();
+                if($(window).scrollTop() + tile.height() + 150 >= tile.position().top && !loading )  {
+                    loading = true
+                    loadingImage.show();
+                    $.ajax('/Home/Tiles', {data:{page:page+1}})
+                    .done(function(data){
+                        page++;
+                        loading = false;
+                        loadingImage.hide();
+                        var resd = $(data);
+                        resd.find('img').addClass('img-responsive');
+                        $('#tilesContainer').append(resd).find('.tile').addClass('show');
+                        
+                    })
+                    .error(function(){
+                        loadingImage.hide();
+                    });
+                }
+            });
+
+
         });
+       
     </script>
 }

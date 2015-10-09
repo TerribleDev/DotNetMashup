@@ -7,6 +7,15 @@
     -moz-box-shadow: 7px 10px 20px -7px rgba(0,0,0,0.75);
     box-shadow: 7px 10px 20px -7px rgba(0,0,0,0.75);
     padding: 5px;
+    -moz-transition: opacity .5s ease-in;
+    -o-transition: opacity .5s ease-in;
+    -webkit-transition: opacity .5s ease-in;
+    transition: opacity .5s ease-in;
+    opacity: 0;
+}
+.tile.show{
+
+   opacity: 1;
 }
 
 body {
@@ -60,4 +69,11 @@ code, pre {
     white-space: pre-wrap; /* css-3 */
     -ms-word-wrap: break-word;
     word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+.head{
+    color: #FFFFFF; text-align:center;
+
+}
+a.head, a:hover, a:visited{
+     color: #FFFFFF; text-align:center;
 }
