@@ -36,7 +36,18 @@ namespace DotNetMashup.Web.Controllers
             {
                 return new HttpStatusCodeResult(404);
             }
-            return View(new MashupViewModel { CurrentPage = 1, NextPage = data.Count > setting.AmountPerPage ? (int?)page + 1: null,  Header = "DotNet Mashups", Posts = data.Take(setting.AmountPerPage)});
+            return View(new MashupViewModel { CurrentPage = page, NextPage = data.Count > setting.AmountPerPage ? (int?)page + 1 : null, Header = "DotNet Mashups", Posts = data.Take(setting.AmountPerPage) });
+        }
+
+        public async Task<IActionResult> Tiles(int page = 1)
+        {
+            var factoryData = (await factory.GetData());
+            var data = factoryData.OrderByDescending(a => a.PublishedDate).Skip((page - 1) * setting.AmountPerPage).Take(setting.AmountPerPage * 2).ToList();
+            if(data.Count < 1)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+            return PartialView("Tiles", data);
         }
 
         public IActionResult Error()

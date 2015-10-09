@@ -1,14 +1,8 @@
 ﻿@model IEnumerable<DotNetMashup.Web.Model.IExternalData>
 
-@{
-    ViewData["Title"] = "Dot Net Mashups!";
+@foreach(var x in Model)
+{
+    <div class="row tileRow">
+        @(await Html.PartialAsync("ExternalData", x))
+    </div>
 }
-<div class="col-sm-offset-1 col-sm-10">
-
-    @foreach(var x in Model)
-    {
-        <div class="row">
-            @(await Html.PartialAsync("ExternalData", x))
-        </div>
-    }
-</div>
