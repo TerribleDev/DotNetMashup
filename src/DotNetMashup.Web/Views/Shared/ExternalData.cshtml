@@ -1,3 +1,4 @@
 ﻿@model DotNetMashup.Web.Model.IExternalData
-
-@Html.DisplayFor(a => a)
+<cache vary-by="@Model.GetHashCode()">
+    @Html.DisplayFor(a => a)
+</cache>

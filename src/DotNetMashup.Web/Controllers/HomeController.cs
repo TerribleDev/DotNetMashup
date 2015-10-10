@@ -9,15 +9,17 @@ using DotNetMashup.Web.Global;
 using DotNetMashup.Web.Model;
 using DotNetMashup.Web.ViewModel;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Caching.Memory;
 
 namespace DotNetMashup.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMemoryCache cache;
         private readonly ISiteSetting setting;
         private readonly Factory.RepositoryFactory factory;
 
-        public HomeController(Factory.RepositoryFactory factory, ISiteSetting setting)
+        public HomeController(Factory.RepositoryFactory factory, ISiteSetting setting, IMemoryCache cache)
         {
             if(factory == null)
             {
@@ -29,9 +31,9 @@ namespace DotNetMashup.Web.Controllers
             }
             this.factory = factory;
             this.setting = setting;
+            this.cache = cache;
         }
 
-        [ResponseCache(Duration = 3600, NoStore = true, Location = ResponseCacheLocation.Any)]
         public async Task<IActionResult> Index(int page = 1)
         {
             var factoryData = (await factory.GetData());

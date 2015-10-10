@@ -17,7 +17,7 @@ namespace DotNetMashup.Web.Extensions
                 Title = new TextSyndicationContent(settings.Title),
                 Id = "DotNet Mashup",
                 LastUpdatedTime = data.OrderByDescending(a => a.PublishedDate).FirstOrDefault().PublishedDate,
-                Description = new TextSyndicationContent(settings.Descriptions)
+                Description = new TextSyndicationContent(settings.Descriptions),
             };
             var authors = data.Select(a => a.Author)
                 .Distinct()
@@ -25,7 +25,7 @@ namespace DotNetMashup.Web.Extensions
             authors.ForEach(a => feed.Authors.Add(a));
             authors.ForEach(a => feed.Contributors.Add(a));
             feed.Links.Add(new SyndicationLink(new Uri("http://dotnetmashup.azurewebsites.net")));
-            feed.Items = data.Select(a => new SyndicationItem(a.Title, a.Content, a.OriginalLink)).ToList();
+            feed.Items = data.Select(a => new SyndicationItem(a.Title, a.Content, a.OriginalLink) { PublishDate = a.PublishedDate }).ToList();
 
             return feed;
         }

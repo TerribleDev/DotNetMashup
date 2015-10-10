@@ -38,8 +38,8 @@
             var loading = false;
             $(window).on('scroll', function () {
                 var loadingImage = $('.loadWheel');
-                var tile = $('.tile').last();
-                if($(window).scrollTop() + tile.height() + 150 >= tile.position().top && !loading )  {
+                var tile = $('.tileRow').last();
+                if($(window).scrollTop() + tile.height() + 250 >= tile.position().top && !loading )  {
                     loading = true
                     loadingImage.show();
                     $.ajax('/Home/Tiles', {data:{page:page+1}})
@@ -50,7 +50,7 @@
                         var resd = $(data);
                         resd.find('img').addClass('img-responsive');
                         $('#tilesContainer').append(resd).find('.tile').addClass('show');
-                        
+
                     })
                     .error(function(){
                         loadingImage.hide();
@@ -58,8 +58,6 @@
                 }
             });
 
-
         });
-       
     </script>
 }
