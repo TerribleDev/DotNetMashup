@@ -31,6 +31,7 @@ namespace DotNetMashup.Web.Controllers
             this.setting = setting;
         }
 
+        [ResponseCache(Duration = 3600, NoStore = true, Location = ResponseCacheLocation.Any)]
         public async Task<IActionResult> Index(int page = 1)
         {
             var factoryData = (await factory.GetData());

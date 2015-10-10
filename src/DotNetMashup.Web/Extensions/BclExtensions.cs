@@ -169,18 +169,11 @@ namespace DotNetMashup.Web.Extensions
                 @"\s+[^\s]+$", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Compiled) + trailingText;
         }
 
-        public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        public static string TrimAll(this string input)
         {
-            foreach(T item in enumeration)
-            {
-                action?.Invoke(item);
-            }
-        }
-
-        public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts)
-        {
-            var i = 0;
-            return list.GroupBy(a => i++ % parts).AsEnumerable();
+            return new string(input.ToCharArray()
+                .Where(c => !char.IsWhiteSpace(c))
+                .ToArray());
         }
     }
 }

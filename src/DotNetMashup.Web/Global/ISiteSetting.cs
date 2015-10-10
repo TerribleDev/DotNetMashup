@@ -8,5 +8,6 @@ namespace DotNetMashup.Web.Global
         short AmountPerPage { get; }
         string Title { get; }
         string Descriptions { get; }
+        int TwitterMaxSearch { get; }
     }
 }

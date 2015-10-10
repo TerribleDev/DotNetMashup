@@ -7,7 +7,9 @@
 
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
 </head>
 <body>
     <div class="headerwrap">
@@ -20,13 +22,30 @@
         <p>&copy; 2015 - DotNetMashup.Web</p>
     </footer>
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery">
     </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js">
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
     </script>
-    <script src="https://ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js">
+    <script src="https://ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js"
+            asp-fallback-src="~/lib/hammer.js/hammer.js"
+            asp-fallback-test="window.Hammer">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.0.0/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"
+            asp-fallback-src="~/lib/underscore/undercore-min.js"
+            asp-fallback-test="_">
+    </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("scripts", required: false)
