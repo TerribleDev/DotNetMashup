@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DotNetMashup.Web.Model;
 using Octokit;
@@ -32,7 +30,7 @@ namespace DotNetMashup.Web.Repositories
                 Author = new Model.Author { Name = !string.IsNullOrWhiteSpace(a.User.Name) ? a.User.Name : a.User.Login, AuthorUrl = a.User.Url, ImageUrl = a.User.AvatarUrl, Email = a.User.Email },
                 Content = CommonMark.CommonMarkConverter.Convert(a.Body),
                 Title = a.Title,
-                OriginalLink = a.HtmlUrl.AbsoluteUri,
+                OriginalLink = a.HtmlUrl,
                 IssueNumber = a.Number,
                 PublishedDate = a.CreatedAt
             });

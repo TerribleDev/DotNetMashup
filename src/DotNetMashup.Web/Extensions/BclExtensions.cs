@@ -2,11 +2,13 @@
 
 namespace DotNetMashup.Web.Extensions
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
 
-    public static class StringHtmlExtensions
+    public static class BclExtensions
     {
         /// <summary>
         /// Truncates a string containing HTML to a number of text characters, keeping whole words.
@@ -165,6 +167,20 @@ namespace DotNetMashup.Web.Extensions
             // trunctate the text, then remove the partial word at the end
             return Regex.Replace(text.Truncate(maxCharacters),
                 @"\s+[^\s]+$", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Compiled) + trailingText;
+        }
+
+        public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        {
+            foreach(T item in enumeration)
+            {
+                action?.Invoke(item);
+            }
+        }
+
+        public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts)
+        {
+            var i = 0;
+            return list.GroupBy(a => i++ % parts).AsEnumerable();
         }
     }
 }
