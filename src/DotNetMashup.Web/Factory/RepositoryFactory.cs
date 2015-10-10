@@ -33,7 +33,8 @@ namespace DotNetMashup.Web.Factory
             Repos = new List<IRepository>()
             {
                 new GitHubRepository(config),
-                new BlogPostRepository(data, setting)
+                new BlogPostRepository(data, setting),
+                new TwitterRepository(setting, config)
             };
             this.cache = cache;
         }

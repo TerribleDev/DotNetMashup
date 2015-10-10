@@ -41,6 +41,7 @@ namespace DotNetMashup.Web
             {
                 return new MemoryCache(new MemoryCacheOptions());
             });
+            services.AddCaching();
             services.AddInstance(_feedData);
             services.AddSingleton<RepositoryFactory>();
             // Add MVC services to the services container.
