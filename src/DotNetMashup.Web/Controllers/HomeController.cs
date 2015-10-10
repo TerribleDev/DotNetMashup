@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
+using DotNetMashup.Web.Extensions;
 using DotNetMashup.Web.Global;
-using DotNetMashup.Web.Repositories;
+using DotNetMashup.Web.Model;
 using DotNetMashup.Web.ViewModel;
 using Microsoft.AspNet.Mvc;
 
@@ -36,7 +39,7 @@ namespace DotNetMashup.Web.Controllers
             {
                 return new HttpStatusCodeResult(404);
             }
-            return View(new MashupViewModel { CurrentPage = page, NextPage = data.Count > setting.AmountPerPage ? (int?)page + 1 : null, Header = "DotNet Mashups", Posts = data.Take(setting.AmountPerPage) });
+            return View(new MashupViewModel { CurrentPage = page, NextPage = data.Count > setting.AmountPerPage ? (int?)page + 1 : null, Header = setting.Title, Posts = data.Take(setting.AmountPerPage) });
         }
 
         public async Task<IActionResult> Tiles(int page = 1)
@@ -50,9 +53,42 @@ namespace DotNetMashup.Web.Controllers
             return PartialView("Tiles", data);
         }
 
+        [Route("api/tiles")]
+        public async Task<IEnumerable<IExternalData>> GetTiles()
+        {
+            return (await factory.GetData());
+        }
+
         public IActionResult Error()
         {
             return View("~/Views/Shared/Error.cshtml");
+        }
+
+        [Route("sitemap.xml")]
+        public async Task sitemap()
+        {
+            Response.ContentType = "text/xml";
+            var serializer = new XmlSerializer(typeof(Urlset));
+            var set = new Urlset();
+            var data = await GetTiles();
+            var page = 0;
+            set.Url = data.Split(this.setting.AmountPerPage).Select(a => new Url()
+            {
+                Changefreq = "daily",
+                Lastmod = a.Select(b => b.PublishedDate).Max().ToString(),
+                Loc = Url.Action("Index", "Home", new { page = page++ }, this.Request.Scheme),
+                Priority = "1"
+            }).ToList();
+            serializer.Serialize(Response.Body, set);
+        }
+
+        [Route("rss")]
+        public async Task rss()
+        {
+            Response.ContentType = "text/xml";
+            var writer = XmlWriter.Create(this.Response.Body, new XmlWriterSettings() { Async = true });
+            (await factory.GetData()).ToRss().SaveAsRss20(writer);
+            await writer.FlushAsync();
         }
     }
 }

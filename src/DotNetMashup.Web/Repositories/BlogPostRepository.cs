@@ -57,7 +57,7 @@ namespace DotNetMashup.Web.Repositories
                        }
                    }
 
-                   var originallink = link == null ? string.Empty : link.Uri.AbsoluteUri;
+                   var originallink = link.Uri;
 
                    var summary = x.Item.Summary == null
                        ? ((TextSyndicationContent)x.Item.Content).Text

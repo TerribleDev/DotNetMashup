@@ -3,7 +3,6 @@ using System.IO;
 using DotNetMashup.Web.Factory;
 using DotNetMashup.Web.Global;
 using DotNetMashup.Web.Model;
-using DotNetMashup.Web.Repositories;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Dnx.Runtime;
@@ -18,9 +17,13 @@ namespace DotNetMashup.Web
     public class Startup
     {
         private IEnumerable<IBlogMetaData> _feedData = null;
+        private IConfiguration config = null;
 
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
+            config = new ConfigurationBuilder()
+            .AddEnvironmentVariables()
+            .Build();
             _feedData = JsonConvert.DeserializeObject<IEnumerable<BlogMetaData>>(File.ReadAllText(Path.Combine(appEnv.ApplicationBasePath, "blogfeed.json")));
         }
 
@@ -29,6 +32,7 @@ namespace DotNetMashup.Web
         // This method gets called by the runtime.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInstance(config);
             services.AddSingleton<ISiteSetting>(prov =>
             {
                 return new SiteSettings();

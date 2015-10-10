@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DotNetMashup.Web.Model
 {
@@ -14,7 +11,7 @@ namespace DotNetMashup.Web.Model
 
         public string Content { get; set; }
 
-        public string OriginalLink { get; set; }
+        public Uri OriginalLink { get; set; }
 
         public string Title { get; set; }
         public DateTimeOffset PublishedDate { get; set; }
