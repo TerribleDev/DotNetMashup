@@ -15,6 +15,7 @@ namespace DotNetMashup.Web.Extensions
             {
                 PublishedDate = tweet.CreatedAt,
                 Content = tweet.Text,
+                OriginalLink = new Uri($"https://twitter.com/statuses/{tweet.Id}"),
                 tweet = new Lazy<Task<IOEmbedTweet>>(() => tweet.GenerateOEmbedTweetAsync()),
                 Author = new Author
                 {
