@@ -19,7 +19,7 @@ namespace DotNetMashup.Web.Repositories
     {
         private readonly IConfiguration config;
         private readonly ISiteSetting SiteSetting;
-        private Regex filter = new Regex("(job|Job|JOB|looking for|help|apply|Apply)", RegexOptions.Compiled);
+        private Regex filter = new Regex("(job|Job|JOB|looking for|help|apply|Apply|career|careers|hire|hiring)", RegexOptions.Compiled);
 
         public TwitterRepository(ISiteSetting siteSetting, IConfiguration config)
         {
