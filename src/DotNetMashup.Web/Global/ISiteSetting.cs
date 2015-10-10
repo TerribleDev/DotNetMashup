@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DotNetMashup.Web.Global
 {
@@ -9,5 +6,7 @@ namespace DotNetMashup.Web.Global
     {
         List<string> Categories { get; }
         short AmountPerPage { get; }
+        string Title { get; }
+        string Descriptions { get; }
     }
 }

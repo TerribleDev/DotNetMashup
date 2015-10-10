@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DotNetMashup.Web.Model
+﻿namespace DotNetMashup.Web.Model
 {
     public interface IBlogMetaData
     {

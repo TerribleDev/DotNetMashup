@@ -6,6 +6,7 @@ using DotNetMashup.Web.Global;
 using DotNetMashup.Web.Model;
 using DotNetMashup.Web.Repositories;
 using Microsoft.Framework.Caching.Memory;
+using Microsoft.Framework.Configuration;
 
 namespace DotNetMashup.Web.Factory
 {
@@ -15,7 +16,7 @@ namespace DotNetMashup.Web.Factory
         private List<IRepository> Repos;
         private const string cacheKey = "data";
 
-        public RepositoryFactory(IEnumerable<IBlogMetaData> data, ISiteSetting setting, IMemoryCache cache)
+        public RepositoryFactory(IEnumerable<IBlogMetaData> data, ISiteSetting setting, IMemoryCache cache, IConfiguration config)
         {
             if(data == null)
             {
@@ -31,7 +32,7 @@ namespace DotNetMashup.Web.Factory
             }
             Repos = new List<IRepository>()
             {
-                new GitHubRepository(),
+                new GitHubRepository(config),
                 new BlogPostRepository(data, setting)
             };
             this.cache = cache;
