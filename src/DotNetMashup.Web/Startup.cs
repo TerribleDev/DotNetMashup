@@ -24,7 +24,6 @@ namespace DotNetMashup.Web
             config = new ConfigurationBuilder()
             .AddEnvironmentVariables()
             .Build();
-            config["github"] = "3ef4c03a60f07b0d8ff5e1197a33cc7216ff9e41";
             _feedData = JsonConvert.DeserializeObject<IEnumerable<BlogMetaData>>(File.ReadAllText(Path.Combine(appEnv.ApplicationBasePath, "blogfeed.json")));
         }
 
