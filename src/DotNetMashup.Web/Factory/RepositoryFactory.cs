@@ -34,7 +34,7 @@ namespace DotNetMashup.Web.Factory
             {
                 new GitHubRepository(config),
                 new BlogPostRepository(data, setting),
-                new TwitterRepository(setting)
+                new TwitterRepository(setting, config)
             };
             this.cache = cache;
         }
