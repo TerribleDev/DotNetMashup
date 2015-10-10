@@ -41,7 +41,7 @@ namespace DotNetMashup.Web.Repositories
             var creds = new TwitterCredentials(config["twitterkey"], config["twittersecret"], config["twittertokenKey"], config["twittertokenSecret"]);
             Auth.SetCredentials(creds);
 
-            var tweets = SiteSetting
+            return Task.Run(() => SiteSetting
                  .Categories
                  .Select(a => a.TrimAll())
                  .Where(a => !a.Equals("c#"))
@@ -55,9 +55,7 @@ namespace DotNetMashup.Web.Repositories
                  .OrderByDescending(a => a.PublishedDate)
                  .Cast<IExternalData>()
                  .ToList()
-                 .AsEnumerable();
-
-            return Task.FromResult(tweets);
+                 .AsEnumerable());
         }
     }
 }
