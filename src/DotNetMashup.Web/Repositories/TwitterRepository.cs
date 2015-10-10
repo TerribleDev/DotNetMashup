@@ -49,7 +49,7 @@ namespace DotNetMashup.Web.Repositories
                  .Select(a => Search.SearchTweets(new TweetSearchParameters("#" + a) { Lang = Language.English, MaximumNumberOfResults = 100, TweetSearchType = Tweetinvi.Core.Interfaces.Parameters.TweetSearchType.OriginalTweetsOnly }))
                  .SelectMany(a => a)
                  .Where(a => !a.IsRetweet && !filter.IsMatch(a.Text) && !a.Hashtags.Any(b => filter.IsMatch(b.Text)))
-                 .GroupBy(a => a.CreatedAt.Day + a.CreatedAt.Year)
+                 .GroupBy(a => a.CreatedAt.DayOfYear + a.CreatedAt.Year)
                  .SelectMany(a => a.Distinct().Take(3))
                  .Select(a => a.ToTwitterData())
                  .OrderByDescending(a => a.PublishedDate)
