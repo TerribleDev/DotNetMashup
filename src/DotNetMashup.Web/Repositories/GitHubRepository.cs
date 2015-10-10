@@ -2,12 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetMashup.Web.Model;
+using Microsoft.Framework.Configuration;
 using Octokit;
 
 namespace DotNetMashup.Web.Repositories
 {
     public class GitHubRepository : IRepository
     {
+        private readonly IConfiguration config;
+
         public string FactoryName
         {
             get
@@ -16,13 +19,18 @@ namespace DotNetMashup.Web.Repositories
             }
         }
 
+        public GitHubRepository(IConfiguration config)
+        {
+            this.config = config;
+        }
+
         public async Task<IEnumerable<IExternalData>> GetData()
         {
             CommonMark.CommonMarkSettings.Default.AdditionalFeatures = CommonMark.CommonMarkAdditionalFeatures.All;
 
             var client = new GitHubClient(new ProductHeaderValue("dotnetmashup"))
             {
-                Credentials = new Credentials("151e2514adab9e8e44ab99fe8c71899fffa34caa")
+                Credentials = new Credentials(config["github"])
             };
             var issues = await client.Issue.GetAllForRepository("aspnet", "Announcements");
             return issues.Select(a => new GithubAnnouncement
