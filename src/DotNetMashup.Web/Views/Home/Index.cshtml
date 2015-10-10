@@ -38,8 +38,7 @@
             var loading = false;
             $(window).on('scroll', function () {
                 var loadingImage = $('.loadWheel');
-                var tile = $('.tileRow').last();
-                if($(window).scrollTop() + tile.height() + 250 >= tile.position().top && !loading )  {
+                if($(window).scrollTop() + $(window).height() == $(document).height() && !loading )  {
                     loading = true
                     loadingImage.show();
                     $.ajax('/Home/Tiles', {data:{page:page+1}})
