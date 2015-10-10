@@ -1,4 +1,4 @@
-This is the code for [dotnetmashup.azurewebsites.net](dotnetmashup.azurewebsites.net) a mashup of news feeds for the `.net` community.
+This is the code for [dotnetmashup.azurewebsites.net](http://dotnetmashup.azurewebsites.net) a mashup of news feeds for the `.net` community.
 
 
 ## Why?
