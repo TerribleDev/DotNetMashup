@@ -67,7 +67,7 @@ namespace DotNetMashup.Web.Controllers
             return View("~/Views/Shared/Error.cshtml");
         }
 
-        [Route("sitemap.xml")]
+        [Route("sitemap")]
         public async Task sitemap()
         {
             Response.ContentType = "text/xml";
