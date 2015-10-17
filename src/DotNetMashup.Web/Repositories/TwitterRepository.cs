@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,7 +9,6 @@ using Microsoft.Framework.Configuration;
 using Tweetinvi;
 using Tweetinvi.Core.Credentials;
 using Tweetinvi.Core.Enum;
-using Tweetinvi.Core.Interfaces;
 using Tweetinvi.Core.Parameters;
 
 namespace DotNetMashup.Web.Repositories
