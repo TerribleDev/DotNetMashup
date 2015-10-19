@@ -18,7 +18,8 @@
     "Newtonsoft.Json": "7.0.1",
     "TweetinviAPI": "0.9.9.8",
     "Octokit": "0.16.0",
-    "CommonMark.NET": "0.9.1"
+    "CommonMark.NET": "0.9.1",
+    "Microsoft.ApplicationInsights.AspNet": "1.0.0-beta8"
   },
 
   "commands": {
