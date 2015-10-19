@@ -8,5 +8,8 @@
     "gulp-uglify": "1.2.0",
     "rimraf": "2.2.8",
     "font-awesome": "4.4.0"
+  },
+  "dependencies": {
+    "gulp-jshint": "^1.11.2"
   }
 }
