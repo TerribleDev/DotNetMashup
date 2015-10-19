@@ -23,6 +23,7 @@ namespace DotNetMashup.Web
         {
             config = new ConfigurationBuilder()
             .AddEnvironmentVariables()
+            .AddApplicationInsightsSettings(instrumentationKey: "fda37cc5-e36e-4171-94ac-f02f9f1771c9")
             .Build();
             _feedData = JsonConvert.DeserializeObject<IEnumerable<BlogMetaData>>(File.ReadAllText(Path.Combine(appEnv.ApplicationBasePath, "blogfeed.json")));
         }
@@ -33,6 +34,7 @@ namespace DotNetMashup.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInstance(config);
+            services.AddApplicationInsightsTelemetry(config);
             services.AddSingleton<ISiteSetting>(prov =>
             {
                 return new SiteSettings();
