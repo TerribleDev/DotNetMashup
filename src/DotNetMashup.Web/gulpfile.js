@@ -5,7 +5,8 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
-    project = require("./project.json");
+    project = require("./project.json"),
+   jshint = require('gulp-jshint');
 
 var paths = {
     webroot: "./" + project.webroot + "/"
@@ -27,7 +28,10 @@ gulp.task("clean:css", function (cb) {
 });
 
 gulp.task("clean", ["clean:js", "clean:css"]);
-
+gulp.task("jshint", function () {
+    return gulp.src("js/**")
+    .pipe(jshint());
+});
 gulp.task("min:js", function () {
     gulp.src([paths.js, "!" + paths.minJs], { base: "." })
         .pipe(concat(paths.concatJsDest))

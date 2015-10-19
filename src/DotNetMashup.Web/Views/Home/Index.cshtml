@@ -30,5 +30,31 @@
 }
 
 @section scripts{
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function(){
+            var page = @Model.CurrentPage;
+            $('img').addClass('img-responsive');
+            $('.tile').addClass('show');
+            var loading = false;
+            $(window).on('scroll', function () {
+                var loadingImage = $('.loadWheel');
+                if($(window).scrollTop() + $(window).height() == $(document).height() && !loading )  {
+                    loading = true
+                    loadingImage.show();
+                    $.ajax('/Home/Tiles', {data:{page:page+1}})
+                    .done(function(data){
+                        page++;
+                        loading = false;
+                        loadingImage.hide();
+                        var resd = $(data);
+                        resd.find('img').addClass('img-responsive');
+                        $('#tilesContainer').append(resd).find('.tile').addClass('show');
+                    })
+                    .error(function(){
+                        loadingImage.hide();
+                    });
+                }
+            });
+        });
+    </script>
 }

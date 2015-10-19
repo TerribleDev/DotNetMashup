@@ -1,30 +1,4 @@
-﻿// Write your Javascript code.
-$(document).ready(function(){
-    var page = @Model.CurrentPage;
-    $('img').addClass('img-responsive');
-    $('.tile').addClass('show');
-    var loading = false;
-    $(window).on('scroll', function () {
-        var loadingImage = $('.loadWheel');
-        if($(window).scrollTop() + $(window).height() == $(document).height() && !loading )  {
-            loading = true
-            loadingImage.show();
-            $.ajax('/Home/Tiles', {data:{page:page+1}})
-            .done(function(data){
-                page++;
-                loading = false;
-                loadingImage.hide();
-                var resd = $(data);
-                resd.find('img').addClass('img-responsive');
-                $('#tilesContainer').append(resd).find('.tile').addClass('show');
-            })
-            .error(function(){
-                loadingImage.hide();
-            });
-        }
-    });
-});
-(function (i, s, o, g, r, a, m) {
+﻿(function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         (i[r].q = i[r].q || []).push(arguments)
     }, i[r].l = 1 * new Date(); a = s.createElement(o),
