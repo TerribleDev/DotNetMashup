@@ -73,14 +73,14 @@ namespace DotNetMashup.Web
             {
                 // Add Error handling middleware which catches all application specific errors and
                 // send the request to the following path or controller action.
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error")
+                .UseApplicationInsightsRequestTelemetry()
+                .UseApplicationInsightsExceptionTelemetry();
             }
 
             // Add static files to the request pipeline.
-            app.UseStaticFiles();
-
-            // Add MVC to the request pipeline.
-            app.UseMvc(routes =>
+            app.UseStaticFiles()
+                .UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
